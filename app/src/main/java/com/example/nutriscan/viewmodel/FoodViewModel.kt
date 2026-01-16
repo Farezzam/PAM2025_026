@@ -23,6 +23,9 @@ class FoodViewModel(private val repo: FoodRepository) : ViewModel() {
     private val _tambahStatus = MutableStateFlow<Boolean?>(null)
     val tambahStatus: StateFlow<Boolean?> = _tambahStatus.asStateFlow()
 
+    private val _kaloriMingguan = MutableStateFlow<List<Int>>(emptyList())
+    val kaloriMingguan = _kaloriMingguan.asStateFlow()
+
     fun ambilRiwayat() {
         viewModelScope.launch {
             repo.ambilRiwayat().collect {
@@ -63,6 +66,16 @@ class FoodViewModel(private val repo: FoodRepository) : ViewModel() {
             porsi = porsiDefault,
             timestamp = timestamp
         )
+    }
+
+    fun ambilKaloriMingguan() {
+        viewModelScope.launch {
+            repo.ambilKaloriMingguan().collect { list ->
+                // list = List<WeeklyCaloriesResult>
+                val kaloriList = list.map { it.total ?: 0 }   // ambil nilai total
+                _kaloriMingguan.value = kaloriList
+            }
+        }
     }
 
     fun hapusMakanan(food: FoodEntity) {
