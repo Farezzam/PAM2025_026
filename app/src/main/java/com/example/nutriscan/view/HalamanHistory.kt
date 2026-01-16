@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -22,6 +23,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.nutriscan.viewmodel.FoodViewModel
+import java.text.SimpleDateFormat
+import java.util.*
+
+fun formatTanggal(timestamp: Long): String {
+    val sdf = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+    return sdf.format(Date(timestamp))
+}
 
 @Composable
 fun HalamanHistory(
@@ -100,7 +108,7 @@ fun HalamanHistory(
                                 Spacer(modifier = Modifier.height(4.dp))
 
                                 Text(
-                                    text = "Tanggal: ${formatTanggal(item.timestamp)}"
+                                    text = "Tanggal: ${formatTanggal(item.timestamp)}",
                                     style = MaterialTheme.typography.bodySmall
                                 )
                             }
