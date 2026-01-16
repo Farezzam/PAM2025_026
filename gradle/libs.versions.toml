@@ -17,6 +17,7 @@ datastore = "1.1.1"
 coroutines = "1.8.1"
 mpandroidchart = "v3.1.0"
 kspver = "2.0.21-1.0.26"
+compose-pager = "1.5.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -46,6 +47,7 @@ datastore = { group = "androidx.datastore", name = "datastore-preferences", vers
 coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
 mpandroidchart = { group = "com.github.PhilJay", name = "MPAndroidChart", version.ref = "mpandroidchart" }
+compose-pager = { group = "androidx.compose.foundation", name = "foundation", version.ref = "compose-pager" }
 
 [bundles]
 compose = [

@@ -64,6 +64,7 @@ dependencies {
     implementation(libs.datastore)
     implementation(libs.bundles.coroutines)
     implementation(libs.mpandroidchart)
+    implementation(libs.compose.pager)
     ksp(libs.room.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
