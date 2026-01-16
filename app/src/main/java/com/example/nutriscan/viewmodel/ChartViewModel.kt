@@ -10,13 +10,14 @@ import kotlinx.coroutines.launch
 
 class ChartViewModel(private val repo: FoodRepository) : ViewModel() {
 
-    private val _kaloriMingguan = MutableStateFlow<List<WeeklyCaloriesResult>>(emptyList())
-    val kaloriMingguan: StateFlow<List<WeeklyCaloriesResult>> = _kaloriMingguan
+    private val _kaloriMingguan = MutableStateFlow<List<Int>>(emptyList())
+    val kaloriMingguan: StateFlow<List<Int>> = _kaloriMingguan
 
     fun ambilKaloriMingguan() {
         viewModelScope.launch {
-            repo.ambilKaloriMingguan().collect {
-                _kaloriMingguan.value = it
+            repo.ambilKaloriMingguan().collect { list ->
+                _kaloriMingguan.value =
+                    list.map { it.total ?: 0 }  // ambil total dari WeeklyCaloriesResult
             }
         }
     }
