@@ -1,6 +1,8 @@
 package com.example.nutriscan.view
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.nutriscan.R
 import kotlinx.coroutines.launch
@@ -28,46 +31,49 @@ import kotlinx.coroutines.launch
 fun HalamanOnboarding(
     onMulai: () -> Unit
 ) {
-
     val pages = listOf(
         OnboardingPage(
             title = "Pantau Kalori Harianmu",
             desc = "Catat makanan yang kamu konsumsi setiap hari secara mudah dan cepat.",
-            image = R.drawable.onboard1
+            image = R.drawable.phone // Pastikan nama file di res/drawable benar
         ),
         OnboardingPage(
             title = "Kelola Pola Makan",
             desc = "Lihat riwayat makanan dan pantau kesehatanmu dengan lebih baik.",
-            image = R.drawable.onboard2
+            image = R.drawable.checklist
         ),
         OnboardingPage(
             title = "Grafik Kalori Mingguan",
             desc = "Analisa perkembangan pola makan selama 7 hari terakhir.",
-            image = R.drawable.onboard3
+            image = R.drawable.charts
         )
     )
 
-    val pagerState = rememberPagerState (pageCount = { pages.size })
-    val scope = rememberCoroutineScope ()
+    val pagerState = rememberPagerState(pageCount = { pages.size })
+    val scope = rememberCoroutineScope()
 
-    Surface (modifier = Modifier.fillMaxSize()) {
-        Column (
+    Surface(modifier = Modifier.fillMaxSize()) {
+        Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
-            Spacer(modifier = Modifier.height(40.dp))
-
-            HorizontalPager (state = pagerState) { index ->
-                OnboardingItem(page = pages[index])
+            // Memberikan weight(1f) agar Pager mengambil ruang sisa
+            // dan tidak mendorong tombol keluar layar
+            Box(modifier = Modifier.weight(1f)) {
+                HorizontalPager(
+                    state = pagerState,
+                    modifier = Modifier.fillMaxSize()
+                ) { index ->
+                    OnboardingItem(page = pages[index])
+                }
             }
 
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
-            // Tombol Next / Mulai
-            Button (
+            // Tombol Next / Mulai tetap di bawah
+            Button(
                 onClick = {
                     scope.launch {
                         if (pagerState.currentPage < pages.lastIndex) {
@@ -77,7 +83,9 @@ fun HalamanOnboarding(
                         }
                     }
                 },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp) // Memberi tinggi pasti agar jelas terlihat
             ) {
                 Text(
                     text = if (pagerState.currentPage == pages.lastIndex)
@@ -86,6 +94,8 @@ fun HalamanOnboarding(
                         "Lanjut"
                 )
             }
+
+            Spacer(modifier = Modifier.height(20.dp))
         }
     }
 }
@@ -93,30 +103,31 @@ fun HalamanOnboarding(
 @Composable
 fun OnboardingItem(page: OnboardingPage) {
     Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = Modifier.fillMaxWidth(), // JANGAN fillMaxSize di sini
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
-
         Image(
             painter = painterResource(id = page.image),
             contentDescription = page.title,
             modifier = Modifier
                 .size(260.dp)
-                .padding(top = 30.dp)
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(32.dp))
 
         Text(
             text = page.title,
-            style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold)
+            style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
+            textAlign = TextAlign.Center
         )
 
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
         Text(
             text = page.desc,
-            style = MaterialTheme.typography.bodyMedium,
+            style = MaterialTheme.typography.bodyLarge,
+            textAlign = TextAlign.Center,
             modifier = Modifier.padding(horizontal = 20.dp)
         )
     }
