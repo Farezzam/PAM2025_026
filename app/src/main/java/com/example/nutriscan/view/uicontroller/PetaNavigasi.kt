@@ -1,9 +1,11 @@
 package com.example.nutriscan.view.uicontroller
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.nutriscan.view.HalamanAbout
 import com.example.nutriscan.view.HalamanChart
 import com.example.nutriscan.view.HalamanHistory
 import com.example.nutriscan.view.HalamanHome
@@ -20,7 +22,8 @@ fun PetaNavigasi(
     navController: NavHostController,
     authVM: AuthViewModel,
     foodVM: FoodViewModel,
-    chartVM: ChartViewModel
+    chartVM: ChartViewModel,
+    modifier: Modifier = Modifier
 ) {
     NavHost(
         navController = navController,
@@ -83,7 +86,7 @@ fun PetaNavigasi(
         // CHART 7 HARI
         composable("chart") {
             chartVM.ambilKaloriMingguan()
-            HalamanChart (
+            HalamanChart(
                 chartVM = chartVM,
                 kembaliKeHome = { navController.navigate("home") }
             )
@@ -91,8 +94,8 @@ fun PetaNavigasi(
 
         // ABOUT PAGE
         composable("about") {
-            HalamanAbout(
-                kembali = { navController.popBackStack() }
+            HalamanAbout (
+                kembaliKeHome = { navController.navigate("home") }
             )
         }
     }
