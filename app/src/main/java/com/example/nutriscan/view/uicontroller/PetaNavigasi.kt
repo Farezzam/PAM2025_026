@@ -1,12 +1,16 @@
 package com.example.nutriscan.view.uicontroller
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.example.nutriscan.view.HalamanAbout
 import com.example.nutriscan.view.HalamanChart
+import com.example.nutriscan.view.HalamanEdit
 import com.example.nutriscan.view.HalamanHistory
 import com.example.nutriscan.view.HalamanHome
 import com.example.nutriscan.view.HalamanInput
@@ -76,10 +80,34 @@ fun PetaNavigasi(
 
         // RIWAYAT MAKANAN
         composable("history") {
-            foodVM.ambilRiwayat()
+            // Memastikan data terbaru diambil saat halaman dibuka
+            LaunchedEffect (Unit) {
+                foodVM.ambilRiwayat()
+            }
+
             HalamanHistory(
                 foodVM = foodVM,
-                kembaliKeHome = { navController.navigate("home") }
+                kembaliKeHome = {
+                    // Menggunakan popBackStack lebih baik daripada navigate("home")
+                    // agar tidak menumpuk halaman di stack navigasi
+                    navController.popBackStack()
+                },
+                keEdit = { foodId ->
+                    // Navigasi ke rute edit dengan membawa ID makanan
+                    navController.navigate("edit/$foodId")
+                }
+            )
+        }
+
+        composable(
+            route = "edit/{foodId}",
+            arguments = listOf(navArgument("foodId") { type = NavType.IntType })
+        ) { backStackEntry ->
+            val foodId = backStackEntry.arguments?.getInt("foodId") ?: 0
+            HalamanEdit (
+                foodId = foodId,
+                foodVM = foodVM,
+                kembali = { navController.popBackStack() }
             )
         }
 
