@@ -56,7 +56,6 @@ fun HalamanAbout(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Card putih dengan sudut membulat
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -108,7 +107,6 @@ fun HalamanAbout(
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            // Tombol Kembali hijau gradasi
             GradientButton(
                 text = "Kembali",
                 onClick = kembaliKeHome,
