@@ -61,12 +61,19 @@ fun PetaNavigasi(
         // HALAMAN UTAMA
         composable("home") {
             foodVM.ambilKaloriHariIni()
-            HalamanHome (
+            HalamanHome(
                 foodVM = foodVM,
                 keInput = { navController.navigate("input") },
                 keHistory = { navController.navigate("history") },
                 keChart = { navController.navigate("chart") },
-                keAbout = { navController.navigate("about") }
+                keAbout = { navController.navigate("about") },
+                onLogout = {
+                    authVM.logout()
+                    navController.navigate("login") {
+                        popUpTo("home") { inclusive = true }
+                        launchSingleTop = true
+                    }
+                }
             )
         }
 
@@ -80,7 +87,6 @@ fun PetaNavigasi(
 
         // RIWAYAT MAKANAN
         composable("history") {
-            // Memastikan data terbaru diambil saat halaman dibuka
             LaunchedEffect (Unit) {
                 foodVM.ambilRiwayat()
             }
@@ -88,12 +94,9 @@ fun PetaNavigasi(
             HalamanHistory(
                 foodVM = foodVM,
                 kembaliKeHome = {
-                    // Menggunakan popBackStack lebih baik daripada navigate("home")
-                    // agar tidak menumpuk halaman di stack navigasi
                     navController.popBackStack()
                 },
                 keEdit = { foodId ->
-                    // Navigasi ke rute edit dengan membawa ID makanan
                     navController.navigate("edit/$foodId")
                 }
             )

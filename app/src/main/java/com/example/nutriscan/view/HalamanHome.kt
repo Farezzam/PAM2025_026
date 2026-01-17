@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -16,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.nutriscan.ui.theme.GradientButton
@@ -27,7 +30,8 @@ fun HalamanHome(
     keInput: () -> Unit,
     keHistory: () -> Unit,
     keChart: () -> Unit,
-    keAbout: () -> Unit
+    keAbout: () -> Unit,
+    onLogout: () -> Unit
 ) {
     val totalKalori = foodVM.kaloriHariIni.collectAsState()
 
@@ -81,6 +85,7 @@ fun HalamanHome(
 
             Spacer(modifier = Modifier.height(30.dp))
 
+
             GradientButton(
                 text = "Tambah Makanan",
                 onClick = keInput,
@@ -116,6 +121,30 @@ fun HalamanHome(
                     .padding(vertical = 6.dp)
                     .height(56.dp)
             )
+
+            Button (
+                onClick = onLogout,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp)
+                    .height(56.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFFD32F2F),
+                    contentColor = Color.White
+                ),
+                shape = RoundedCornerShape(14.dp),
+                elevation = ButtonDefaults.buttonElevation(
+                    defaultElevation = 6.dp,
+                    pressedElevation = 10.dp
+                )
+            ) {
+                Text(
+                    text = "Logout",
+                    style = MaterialTheme.typography.bodyLarge.copy(
+                        fontWeight = FontWeight.Bold
+                    )
+                )
+            }
         }
     }
 }

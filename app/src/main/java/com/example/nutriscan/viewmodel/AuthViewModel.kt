@@ -41,6 +41,9 @@ class AuthViewModel(private val repo: AuthRepository) : ViewModel() {
     fun logout() {
         viewModelScope.launch {
             repo.logout()
+            repo.simpanStatusLogin(false)
+            _loginStatus.value = false
+            _loginResult.value = null
         }
     }
 }
