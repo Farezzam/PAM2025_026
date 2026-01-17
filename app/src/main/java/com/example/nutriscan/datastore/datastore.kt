@@ -27,26 +27,22 @@ class UserPreferences(private val context: Context) {
         }
     }
 
-    // Ambil email
     suspend fun getEmail(): String {
         val prefs = context.dataStore.data.map { it[EMAIL_KEY] ?: "" }
         return prefs.first()
     }
 
-    // Ambil password
     suspend fun getPassword(): String {
         val prefs = context.dataStore.data.map { it[PASSWORD_KEY] ?: "" }
         return prefs.first()
     }
 
-    // Simpan status login
     suspend fun saveLoginStatus(isLoggedIn: Boolean) {
         context.dataStore.edit { prefs ->
             prefs[LOGIN_STATUS_KEY] = isLoggedIn
         }
     }
 
-    // Flow status login
     val loginStatusFlow: Flow<Boolean> = context.dataStore.data.map { prefs ->
         prefs[LOGIN_STATUS_KEY] ?: false
     }

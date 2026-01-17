@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -51,7 +50,6 @@ fun HalamanHome(
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            // CARD TOTAL KALORI
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -83,7 +81,6 @@ fun HalamanHome(
 
             Spacer(modifier = Modifier.height(30.dp))
 
-            // Tombol menu dengan gradasi hijau
             GradientButton(
                 text = "Tambah Makanan",
                 onClick = keInput,

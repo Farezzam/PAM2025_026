@@ -12,7 +12,7 @@ class AuthRepository(
         pref.saveUser(email, password)
     }
 
-    // Login cek kecocokan email & password
+    // validasi
     suspend fun login(email: String, password: String): Boolean {
         val savedEmail = pref.getEmail()
         val savedPassword = pref.getPassword()
@@ -20,7 +20,6 @@ class AuthRepository(
         return (email == savedEmail && password == savedPassword)
     }
 
-    // Status login
     suspend fun simpanStatusLogin(isLoggedIn: Boolean) {
         pref.saveLoginStatus(isLoggedIn)
     }
@@ -29,7 +28,6 @@ class AuthRepository(
         return pref.loginStatusFlow
     }
 
-    // Logout
     suspend fun logout() {
         pref.saveLoginStatus(false)
     }

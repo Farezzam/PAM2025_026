@@ -2,7 +2,6 @@ package com.example.nutriscan.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -11,10 +10,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -47,23 +44,21 @@ fun HalamanRegister(
     var suksesDaftar by remember { mutableStateOf(false) }
 
     Box(modifier = Modifier.fillMaxSize()) {
-        // Background full-screen dengan crop
         Image(
             painter = painterResource(id = R.drawable.loadingscreen),
             contentDescription = null,
             modifier = Modifier.fillMaxSize(),
             contentScale = androidx.compose.ui.layout.ContentScale.Crop,
-            alpha = 0.7f // gelapkan background
+            alpha = 0.7f
         )
 
-        // Overlay hitam transparan
+        // Overlay
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color(0x55000000))
         )
 
-        // Form register
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -86,7 +81,6 @@ fun HalamanRegister(
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                // Input Email
                 OutlinedTextField(
                     value = email,
                     onValueChange = { email = it },
@@ -97,7 +91,6 @@ fun HalamanRegister(
 
                 Spacer(modifier = Modifier.height(12.dp))
 
-                // Input Password
                 OutlinedTextField(
                     value = password,
                     onValueChange = { password = it },
@@ -121,7 +114,6 @@ fun HalamanRegister(
 
                 Spacer(modifier = Modifier.height(20.dp))
 
-                // Tombol gradient Daftar
                 GradientButton(
                     text = "Daftar",
                     onClick = {
@@ -146,7 +138,6 @@ fun HalamanRegister(
                     Text("Sudah punya akun? Login di sini")
                 }
 
-                // Pesan error
                 if (errorMessage.isNotEmpty()) {
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
@@ -156,7 +147,6 @@ fun HalamanRegister(
                     )
                 }
 
-                // Pesan sukses
                 if (suksesDaftar) {
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(

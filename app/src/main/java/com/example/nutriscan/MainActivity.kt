@@ -28,22 +28,18 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            // Mengambil context yang benar untuk Compose
             val context = LocalContext.current
 
-            // --- 1. INIT DATASTORE & DATABASE ---
-            // UserPreferences biasanya butuh context untuk DataStore
+            // INIT DATASTORE & DATABASE ---
             val userPrefs = remember { UserPreferences(context) }
             val db = remember { FoodDatabase.getDatabase(context) }
             val dao = remember { db.foodDao() }
 
             // --- 2. INIT REPOSITORY ---
-            // AuthRepository sekarang menerima userPrefs, bukan context
             val authRepo = remember { AuthRepository(userPrefs) }
             val foodRepo = remember { FoodRepository(dao) }
 
             // --- 3. INIT VIEWMODEL ---
-            // Menginisialisasi ViewModel secara manual sesuai constructor di file yang kamu kirim
             val authVM = remember { AuthViewModel(authRepo) }
             val foodVM = remember { FoodViewModel(foodRepo) }
             val chartVM = remember { ChartViewModel(foodRepo) }

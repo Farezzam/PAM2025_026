@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,11 +12,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -59,7 +56,6 @@ fun HalamanHistory(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Jika tidak ada data
         if (daftar.value.isEmpty()) {
             Box(
                 modifier = Modifier.fillMaxSize(),
@@ -70,7 +66,7 @@ fun HalamanHistory(
         } else {
             LazyColumn(
                 modifier = Modifier
-                    .weight(1f) // supaya tombol tetap di bawah
+                    .weight(1f)
             ) {
                 items(daftar.value) { item ->
 
@@ -78,13 +74,13 @@ fun HalamanHistory(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 6.dp)
-                            .clickable { keEdit(item.id) }, // Error hilang setelah parameter ditambah
+                            .clickable { keEdit(item.id) },
                         shape = RoundedCornerShape(12.dp),
                         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
                     ) {
                         Box(
                             modifier = Modifier
-                                .fillMaxSize() // pastikan Box menutupi seluruh Card
+                                .fillMaxSize()
                                 .background(
                                     Brush.horizontalGradient(
                                         colors = listOf(Color(0xFF2A762E), Color(0xFF08AF11))
@@ -119,7 +115,6 @@ fun HalamanHistory(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Tombol Kembali di bawah
         GradientButton(
             text = "Kembali",
             onClick = kembaliKeHome,

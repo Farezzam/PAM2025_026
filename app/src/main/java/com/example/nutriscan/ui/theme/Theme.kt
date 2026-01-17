@@ -85,7 +85,7 @@ fun GradientButton(
     Button (
         onClick = onClick,
         modifier = modifier,
-        contentPadding = PaddingValues(), // Agar gradasi menutupi seluruh tombol
+        contentPadding = PaddingValues(),
         colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
         shape = RoundedCornerShape(12.dp)
     ) {
