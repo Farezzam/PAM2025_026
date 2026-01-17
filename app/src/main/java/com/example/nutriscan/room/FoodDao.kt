@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -33,6 +34,12 @@ interface FoodDao {
         ORDER BY day ASC
     """)
     fun getWeeklyCalories(): Flow<List<WeeklyCaloriesResult>>
+
+    @Update
+    suspend fun updateFood(food: FoodEntity)
+
+    @Query("SELECT * FROM foods WHERE id = :id")
+    suspend fun getFoodById(id: Int): FoodEntity?
 }
 
 data class WeeklyCaloriesResult(
