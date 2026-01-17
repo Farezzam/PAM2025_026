@@ -19,7 +19,7 @@ class FoodViewModel(private val repo: FoodRepository) : ViewModel() {
     private val _kaloriHariIni = MutableStateFlow(0)
     val kaloriHariIni: StateFlow<Int> = _kaloriHariIni
 
-    // Tambah makanan – status sukses/gagal
+    // Tambah makanan
     private val _tambahStatus = MutableStateFlow<Boolean?>(null)
     val tambahStatus: StateFlow<Boolean?> = _tambahStatus.asStateFlow()
 
@@ -78,8 +78,16 @@ class FoodViewModel(private val repo: FoodRepository) : ViewModel() {
         }
     }
 
-    fun hapusMakanan(food: FoodEntity) {
+    fun updateMakanan(id: Int, nama: String, kalori: Int, porsi: String, timestamp: Long) {
         viewModelScope.launch {
+            val food = FoodEntity(id = id, name = nama, calories = kalori, portion = porsi, timestamp = timestamp)
+            repo.updateMakanan(food) // Pastikan di repository sudah ada fungsi updateMakanan
+        }
+    }
+
+    fun hapusMakanan(id: Int, nama: String, kalori: Int, porsi: String, timestamp: Long) {
+        viewModelScope.launch {
+            val food = FoodEntity(id = id, name = nama, calories = kalori, portion = porsi, timestamp = timestamp)
             repo.hapusMakanan(food)
         }
     }
