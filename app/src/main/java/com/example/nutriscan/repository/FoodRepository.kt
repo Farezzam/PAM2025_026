@@ -8,26 +8,25 @@ class FoodRepository(
     private val dao: FoodDao
 ) {
 
-    // Insert makanan
     suspend fun tambahMakanan(food: FoodEntity) {
         dao.insertFood(food)
     }
 
-    // Hapus makanan
     suspend fun hapusMakanan(food: FoodEntity) {
         dao.deleteFood(food)
     }
 
-    // Ambil semua riwayat makanan
+    suspend fun updateMakanan(food: FoodEntity){
+        dao.updateFood(food)
+    }
+
     fun ambilRiwayat(): Flow<List<FoodEntity>> {
         return dao.getAllFoods()
     }
 
-    // Total kalori hari ini untuk dashboard
     fun ambilKaloriHariIni(): Flow<Int?> {
         return dao.getTodayCalories()
     }
 
-    // Data 7 hari terakhir untuk grafik
     fun ambilKaloriMingguan() = dao.getWeeklyCalories()
 }
